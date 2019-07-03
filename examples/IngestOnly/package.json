@@ -1,0 +1,33 @@
+{
+  "name": "cloudflare-worker-ingest-only",
+  "version": "1.0.0",
+  "description": "Netacea example ingest only cloudflare worker",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Netacea/Cloudflare-Worker-Examples.git"
+  },
+  "keywords": [
+    "netacea",
+    "cloudflare",
+    "worker",
+    "example"
+  ],
+  "author": "Jack Scotson <jack.scotson@netacea.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Netacea/Cloudflare-Worker-Examples/issues"
+  },
+  "homepage": "https://github.com/Netacea/Cloudflare-Worker-Examples#readme",
+  "dependencies": {
+    "@netacea/cloudflare-worker": "^1.0.0"
+  },
+  "devDependencies": {
+    "terser-webpack-plugin": "^1.3.0",
+    "webpack": "^4.35.2",
+    "webpack-cli": "^3.3.5"
+  }
+}
