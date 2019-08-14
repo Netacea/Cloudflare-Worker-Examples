@@ -22,6 +22,6 @@ async function runNetaceaWithRequest (event) {
 }
 
 async function handleRequestWithCustomLogic (request) {
-  // Custom pre-fetch logic here. Must return fetch response from function
+  // Custom pre-fetch logic here. Must return fetch response object from function
   return fetch(request)
 }
