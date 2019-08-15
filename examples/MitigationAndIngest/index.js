@@ -25,7 +25,7 @@ async function runNetaceaWithRequest (event) {
     response = await handleRequest(event.request, mitigationServiceResponse)
     requestLength = Date.now() - requestStartTime
   }
-  event.waitUntil(worker.logRequest(event, mitigationServiceResponse, response, requestLength))
+  event.waitUntil(worker.logRequest(event, response, requestLength, mitigationServiceResponse))
   return response
 }
 

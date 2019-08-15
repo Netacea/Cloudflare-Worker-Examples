@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/Netacea/Cloudflare-Worker-Examples#readme",
   "dependencies": {
-    "@netacea/cloudflare-worker": "^1.0.2"
+    "@netacea/cloudflare-worker": "^1.0.3"
   },
   "devDependencies": {
     "terser-webpack-plugin": "^1.3.0",
