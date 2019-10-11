@@ -28,6 +28,6 @@
     "webpack-cli": "^3.3.5"
   },
   "dependencies": {
-    "@netacea/cloudflare-worker": "^1.0.6"
+    "@netacea/cloudflare-worker": "^1.0.7"
   }
 }
