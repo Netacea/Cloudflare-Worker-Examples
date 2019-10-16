@@ -31,7 +31,7 @@ async function runNetaceaWithRequest (event) {
 
 async function handleRequest (request, mitServiceResponse) {
   const response = await fetch(request)
-  const headers = new Headers(request.headers)
+  const headers = new Headers(response.headers)
 
   if (mitServiceResponse.setCookie) {
     headers.set('Set-Cookie', mitServiceResponse.setCookie)
