@@ -1,36 +1,25 @@
-name: Node.js CI
+name: Cloudflare Worker Examples CI
 
-on: [push, pull_request]
+on: [pull_request]
 
 jobs:
-  build-ingest:
+  ingest-only-example:
     runs-on: ubuntu-latest
     steps:
       - name: 'Build Ingest'
-        uses: './examples/IngestOnly'
         with:
           node-version: '12.x'
+      - run: cd ./exmples/IngestOnly
+      - run: npm i
+      - run: npm run build
       - run: npm run test
-  build-mitigate:
+  mitigate-andingest-example:
     runs-on: ubuntu-latest
     steps:
       - name: 'Build Mitigation & Ingest'
-        uses: './examples/MitigationAndIngest'
         with:
           node-version: '12.x'
+      - run: cd ./exmples/MitigationAndIngest
+      - run: npm i
       - run: npm run test
-  # test-ingest:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: 'Test Ingest'
-  #       uses: './examples/IngestOnly'
-  #       with:
-  #         node-version: '12.x'
-  test-mitigate:
-    runs-on: ubuntu-latest
-    steps:
-      - name: 'Test Mitigation & Ingest'
-        uses: './examples/MitigationAndIngest'
-        with:
-          node-version: '12.x'
-      - run: npm run test
+      - run: npm run build
