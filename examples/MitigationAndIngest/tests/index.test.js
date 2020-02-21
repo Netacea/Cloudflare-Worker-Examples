@@ -86,7 +86,49 @@ test('Initial Request :: Request Blocked by Netacea', t => {
     t.ok(servicesCalled.mitigateCalled, 'Expects mitigate to be called')
     t.notOk(servicesCalled.originCalled, 'Expects origin not to be called')
     t.ok(servicesCalled.logRequestCalled, 'Expects logRequest to be called')
-    t.equals(responseCookieString, netaceaSetCookieValue)
+    t.equals(responseCookieString, netaceaSetCookieValue, 'Expects response cookies to only contain Netacea cookie')
+  }, event)
+})
+
+test('Initial Request :: Request Served Captcha by Netacea', t => {
+  const netaceaSetCookieValue = 'this-is-a-fake-cookie-value'
+  const captchaBodyText = randomString()
+  const mitigationServiceResponse = new fetch.Response(captchaBodyText)
+  mitigationServiceResponse.headers.set('set-cookie', netaceaSetCookieValue)
+  const mitigateResponse = {
+    mitigated: true,
+    setCookie: netaceaSetCookieValue,
+    response: mitigationServiceResponse
+  }
+  const originResponse = new fetch.Response()
+  originResponse.status = 200
+
+  const randomCookieValues = [
+    randomString(),
+    randomString(),
+    randomString(),
+    randomString()
+  ]
+
+  randomCookieValues.forEach(value => {
+    originResponse.headers.append('set-cookie', value)
+  })
+
+  t.plan(globalAssertionCount + 6)
+  const event = new fetch.Request(new URL('http://fake-address.com'))
+  const responses = {
+    mitigateResponse,
+    originResponse,
+    mitigationApplied: ''
+  }
+  runTest(t, responses, (response, servicesCalled) => {
+    t.equals(response.status, 200, 'Expects response status to be 200')
+    const responseCookieString = response.headers.get('set-cookie')
+    t.ok(servicesCalled.mitigateCalled, 'Expects mitigate to be called')
+    t.notOk(servicesCalled.originCalled, 'Expects origin not to be called')
+    t.ok(servicesCalled.logRequestCalled, 'Expects logRequest to be called')
+    t.equals(responseCookieString, netaceaSetCookieValue, 'Expects response cookies to only contain Netacea cookie')
+    t.deepEquals(response.body, Buffer.from(captchaBodyText), 'Expects body buffers to be the same')
   }, event)
 })
 
