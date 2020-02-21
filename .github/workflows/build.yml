@@ -33,21 +33,4 @@ jobs:
       - name: Test
         run: npm run test
         working-directory: ./examples/MitigationAndIngest
-      # - name: Test
-      #   uses: actions/setup-node@v1
-      #   with:
-      #     node-version: '12.x'
-      # - run: |
-      #   cd ./examples/MitigationAndIngest
-      #   npm install
-      #   npm run test
-
-
-    # steps:
-    #   - name: 'Test'
-    #     with:
-    #       node-version: '12.x'
-    #     run: |
-    #       cd ./exmples/MitigationAndIngest
-    #       npm i
-    #       npm run test
+        
