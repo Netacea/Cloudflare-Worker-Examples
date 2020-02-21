@@ -4,7 +4,8 @@
   "description": "Netacea example ingest only cloudflare worker",
   "main": "index.js",
   "scripts": {
-    "build": "npx webpack ./index.js"
+    "build": "npx webpack ./index.js",
+    "test": "NODE_ENV=unittest npx nyc --reporter=lcov --reporter=html tape ./tests/*.test.js"
   },
   "repository": {
     "type": "git",
