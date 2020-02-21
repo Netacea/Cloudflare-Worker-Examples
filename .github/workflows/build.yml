@@ -1,0 +1,35 @@
+name: Node.js CI
+
+on: [push, pull_request]
+
+jobs:
+  build-ingest:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Build Ingest'
+        uses: './examples/IngestOnly'
+        with:
+          node-version: '12.x'
+      - run: npm run test
+  build-mitigate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Build Mitigation & Ingest'
+        uses: './examples/MitigationAndIngest'
+        with:
+          node-version: '12.x'
+      - run: npm run test
+  # test-ingest:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: 'Test Ingest'
+  #       uses: './examples/IngestOnly'
+  #       with:
+  #         node-version: '12.x'
+  test-mitigate:
+    runs-on: ubuntu-latest
+      - name: 'Test Mitigation & Ingest'
+        uses: './examples/MitigationAndIngest'
+        with:
+          node-version: '12.x'
+      - run: npm run test
