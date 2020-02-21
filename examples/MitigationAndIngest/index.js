@@ -16,6 +16,7 @@ async function runNetaceaWithRequest (event) {
   let requestStartTime = Date.now()
   let requestLength = 0
   const mitigationServiceResponse = await worker.mitigate(event)
+
   if (mitigationServiceResponse.mitigated) {
     response = mitigationServiceResponse.response
     response = new Response(response.body, response)
@@ -34,7 +35,7 @@ async function handleRequest (request, mitServiceResponse) {
   const headers = new Headers(response.headers)
 
   if (mitServiceResponse.setCookie) {
-    headers.set('Set-Cookie', mitServiceResponse.setCookie)
+    headers.append('Set-Cookie', mitServiceResponse.setCookie)
   }
 
   // Custom pre-fetch logic here. Must return fetch response object from function
