@@ -28,6 +28,7 @@ jobs:
   #         node-version: '12.x'
   test-mitigate:
     runs-on: ubuntu-latest
+    steps:
       - name: 'Test Mitigation & Ingest'
         uses: './examples/MitigationAndIngest'
         with:
