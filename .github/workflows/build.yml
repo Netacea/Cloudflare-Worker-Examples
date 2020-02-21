@@ -7,18 +7,19 @@ jobs:
     runs-on: ubuntu-latest
     name: 'Mitigation & Ingest'
     steps:
-      - name: 'Build'
+      - name: Build
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
         with:
           node-version: '12.x'
-        run: |
-          cd ./exmples/MitigationAndIngest
-          npm i
-          npm run build
-    steps:
-      - name: 'Test'
-        with:
-          node-version: '12.x'
-        run: |
-          cd ./exmples/MitigationAndIngest
-          npm i
-          npm run test
+      - run: cd ./examples/MitigationAndIngest
+      - run: npm install
+      - run: npm run build
+    # steps:
+    #   - name: 'Test'
+    #     with:
+    #       node-version: '12.x'
+    #     run: |
+    #       cd ./exmples/MitigationAndIngest
+    #       npm i
+    #       npm run test
