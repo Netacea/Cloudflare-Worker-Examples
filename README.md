@@ -5,6 +5,7 @@ Replace 'YOUR-API-KEY-HERE' with the API Key we have provided in the examples/In
 ```
     cd examples/IngestOnly
     npm i
+    npm run test
     npm run build
 ```
 
