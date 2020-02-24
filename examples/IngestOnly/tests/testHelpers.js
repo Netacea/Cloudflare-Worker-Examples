@@ -4,10 +4,8 @@ const proxyquire = require('proxyquire').noCallThru()
 const helpers = {
   randomString: () => Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15),
   runTest: (t, {
-    mitigateResponse,
     originResponse
-  }, assertions, event) => {
-    let mitigateCalled = false
+  }, assertions, event = new Request(new URL('http://fake-address.com'))) => {
     let originCalled = false
     let logRequestCalled = false
     const myEmitter = new EventEmitter()
@@ -22,35 +20,24 @@ const helpers = {
       '@netacea/cloudflare-worker': {
         ATAWorker: class ATAWorker {
           constructor ({
-            apiKey,
-            secretKey
+            apiKey
           }) {
             t.ok(apiKey, 'Expects apiKey to always be provided')
-            t.ok(secretKey, 'Expects secretKey to always be provided')
           }
           async mitigate (event) {
-            const mitigateDefaults = {
-              mitigationApplied: '',
-              setCookie: null,
-              mitServiceStatus: 0,
-              mitigated: false,
-              response: new Response()
-            }
-            mitigateCalled = true
-            return Promise.resolve(Object.assign(mitigateDefaults, mitigateResponse))
+            throw new Error('Not implemented in these tests. This is not to be called')
           }
           async logRequest (event, response, requestLength, mitigationServiceResponse) {
+            t.equals(mitigationServiceResponse, undefined, 'Expects mitigationServiceResponse to be undefined')
             logRequestCalled = true
             return Promise.resolve()
           }
         }
       }
     })
-
     event.respondWith = async (workerFunction) => {
       const response = await workerFunction
       assertions(response, {
-        mitigateCalled,
         logRequestCalled,
         originCalled
       })

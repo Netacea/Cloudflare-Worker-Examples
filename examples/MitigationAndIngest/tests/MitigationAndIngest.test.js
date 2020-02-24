@@ -1,6 +1,5 @@
 const {
   randomString,
-  buildCookieFromValues,
   runTest
 } = require ('./testHelpers')
 const test = require('tape')
