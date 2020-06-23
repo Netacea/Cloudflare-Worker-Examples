@@ -5,7 +5,10 @@ const helpers = {
   randomString: () => Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15),
   runTest: (t, {
     originResponse
-  }, assertions, event = new Request(new URL('http://fake-address.com'))) => {
+  }, assertions, request = new Request(new URL('http://fake-address.com'))) => {
+    const event = {
+      request
+    }
     let originCalled = false
     let logRequestCalled = false
     const myEmitter = new EventEmitter()

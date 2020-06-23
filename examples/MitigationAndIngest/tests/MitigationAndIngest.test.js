@@ -31,7 +31,7 @@ test('Initial Request :: Origin response headers persisted when mitigation servi
     originResponse.headers.append('set-cookie', value)
   })
   t.plan(globalAssertionCount + 5)
-  const event = new fetch.Request(new URL('http://fake-address.com'))
+  const request = new fetch.Request(new URL('http://fake-address.com'))
   const responses = {
     mitigateResponse,
     originResponse
@@ -46,7 +46,7 @@ test('Initial Request :: Origin response headers persisted when mitigation servi
     t.ok(servicesCalled.mitigateCalled, 'Expects mitigate to be called')
     t.ok(servicesCalled.originCalled, 'Expects origin to be called')
     t.ok(servicesCalled.logRequestCalled, 'Expects logRequest to be called')
-  }, event)
+  }, request)
 })
 
 test('Initial Request :: Request Blocked by Netacea', t => {
@@ -73,7 +73,7 @@ test('Initial Request :: Request Blocked by Netacea', t => {
   })
 
   t.plan(globalAssertionCount + 5)
-  const event = new fetch.Request(new URL('http://fake-address.com'))
+  const request = new fetch.Request(new URL('http://fake-address.com'))
   const responses = {
     mitigateResponse,
     originResponse,
@@ -86,7 +86,7 @@ test('Initial Request :: Request Blocked by Netacea', t => {
     t.notOk(servicesCalled.originCalled, 'Expects origin not to be called')
     t.ok(servicesCalled.logRequestCalled, 'Expects logRequest to be called')
     t.equals(responseCookieString, netaceaSetCookieValue, 'Expects response cookies to only contain Netacea cookie')
-  }, event)
+  }, request)
 })
 
 test('Initial Request :: Request Served Captcha by Netacea', t => {
@@ -114,7 +114,7 @@ test('Initial Request :: Request Served Captcha by Netacea', t => {
   })
 
   t.plan(globalAssertionCount + 6)
-  const event = new fetch.Request(new URL('http://fake-address.com'))
+  const request = new fetch.Request(new URL('http://fake-address.com'))
   const responses = {
     mitigateResponse,
     originResponse,
@@ -128,7 +128,7 @@ test('Initial Request :: Request Served Captcha by Netacea', t => {
     t.ok(servicesCalled.logRequestCalled, 'Expects logRequest to be called')
     t.equals(responseCookieString, netaceaSetCookieValue, 'Expects response cookies to only contain Netacea cookie')
     t.deepEquals(response.body, Buffer.from(captchaBodyText), 'Expects body buffers to be the same')
-  }, event)
+  }, request)
 })
 
 test('Netacea OTP Request :: Origin response headers ', t => {
@@ -148,7 +148,7 @@ test('Netacea OTP Request :: Origin response headers ', t => {
     originResponse.headers.append('set-cookie', value)
   })
   t.plan(globalAssertionCount + 2)
-  const event = new fetch.Request(new URL('http://fake-address.com'))
+  const request = new fetch.Request(new URL('http://fake-address.com'))
   runTest(t, {
     mitigateResponse,
     originResponse
@@ -158,6 +158,6 @@ test('Netacea OTP Request :: Origin response headers ', t => {
     t.ok(randomCookieValues.every(value => {
       return  responseCookieString.indexOf(value) > -1
     }), 'Expects all origin cookies returned with response')
-  }, event)
+  }, request)
 })
 
