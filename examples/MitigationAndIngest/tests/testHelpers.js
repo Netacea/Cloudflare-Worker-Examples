@@ -6,7 +6,10 @@ const helpers = {
   runTest: (t, {
     mitigateResponse,
     originResponse
-  }, assertions, event) => {
+  }, assertions, request) => {
+    const event = {
+      request
+    }
     let mitigateCalled = false
     let originCalled = false
     let logRequestCalled = false
